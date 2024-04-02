@@ -1,0 +1,32 @@
+from collections import defaultdict, deque
+def addEdge(adjList, u, v):
+    adjList[u].append(v)
+    adjList[v].append(u)
+
+visited = []
+queue = deque()
+
+def bfs(graph, start):
+    queue.append(start)
+    visited.append(start)
+
+    while queue:
+        vertex = queue.popleft()
+        print(vertex,"\t")
+
+        for neighbor in graph[vertex]:
+            if neighbor not in visited:
+                visited.append(neighbor)
+                queue.append(neighbor)
+
+num_edges = int(input("Enter the number of edges: "))
+
+graph = defaultdict(list)
+
+for _ in range(num_edges):
+    u, v = map(int, input("Enter edge (u v): ").split())
+    addEdge(graph, u, v)
+
+start_vertex = int(input("Enter the starting vertex for BFS: "))
+
+bfs(graph, start_vertex)
